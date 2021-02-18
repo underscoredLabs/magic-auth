@@ -1,5 +1,5 @@
 /* 5️⃣ Implement Logout Handler */
 const handleLogout = async () => {
   await magic.user.logout();
-  render();
+  document.getElementById("app").innerHTML = `See you soon 👋`;
 };

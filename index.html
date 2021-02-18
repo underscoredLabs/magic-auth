@@ -11,6 +11,7 @@
     <script src="./handleLogin.js"></script>
     <script src="./handleLogout.js"></script>
     <script src="./sendTransaction.js"></script>
+    <script src="./signMessage.js"></script>
 
     <script>
       /* 2️⃣ Initialize Magic Instance */
@@ -18,20 +19,19 @@
 
       /* 3️⃣ Implement Render Function */
       const render = async () => {
-        let html = "";
         const isLoggedIn = await magic.user.isLoggedIn();
         if (isLoggedIn) {
-          /* Get user metadata including email */
-          const userMetadata = await magic.user.getMetadata();
-          html = `
-              <h1>Hello ${userMetadata.email}</h1>
-              <button onclick="handleLogout()">Logout</button>
+          const signedMessage = await signMessage();
+          const html = `
+              <h1>Login Code:</h1>
+              <code style="word-wrap: break-word;">${signedMessage}</code>
+              <hr>
+              <button onclick="handleLogout()"> Logout </button>
             `;
-          // sendTransaction()
+          document.getElementById("app").innerHTML = html;
         } else {
           handleLogin();
         }
-        document.getElementById("app").innerHTML = html;
       };
     </script>
   </head>
