@@ -19,37 +19,17 @@
       /* 3️⃣ Implement Render Function */
       const render = async () => {
         let html = "";
-
-        if (window.location.pathname === "/callback") {
-          try {
-            /* Complete the "authentication callback" */
-            await magic.auth.loginWithCredential();
-
-            /* Get user metadata including email */
-            const userMetadata = await magic.user.getMetadata();
-
-            html = `
+        const isLoggedIn = await magic.user.isLoggedIn();
+        if (isLoggedIn) {
+          /* Get user metadata including email */
+          const userMetadata = await magic.user.getMetadata();
+          html = `
               <h1>Hello ${userMetadata.email}</h1>
               <button onclick="handleLogout()">Logout</button>
             `;
-            console.log(userMetadata);
-            /* Sign Message */
-            signMessage();
-          } catch {
-            window.location.href = window.location.origin;
-          }
+          // sendTransaction()
         } else {
-          const isLoggedIn = await magic.user.isLoggedIn();
-          if (isLoggedIn) {
-            /* Get user metadata including email */
-            const userMetadata = await magic.user.getMetadata();
-            html = `
-              <h1>Hello ${userMetadata.email}</h1>
-              <button onclick="handleLogout()">Logout</button>
-            `;
-          } else {
-            handleLogin();
-          }
+          handleLogin();
         }
         document.getElementById("app").innerHTML = html;
       };
