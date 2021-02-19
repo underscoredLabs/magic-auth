@@ -1,5 +1,5 @@
 {
-  "name": "magic-test",
+  "name": "magic-auth",
   "version": "0.1.0",
   "description": "A vanilla HTML + JS app with Magic passwordless authentication.",
   "main": "index.html",
